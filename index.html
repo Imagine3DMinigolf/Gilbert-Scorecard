@@ -265,7 +265,7 @@
         
         /* Winner Highlight Animation */
         .winner {
-            background-color: #FFD700 !important; /* Gold */
+            background-color: #D4AF37 !important; /* Gold */
             color: #000 !important;               /* Black text */
             font-weight: 800;
             border: 2px solid #B8860B;            /* Darker gold border */
@@ -334,7 +334,7 @@
         </div>
 
         <div class="controls">
-            <a href="#" target="_blank" class="btn-google">Rate Us? </a>
+            <a href="https://share.google/0O2qzkCKN25aDYVO7" target="_blank" class="btn-google">Rate Us!? </a>
             <button class="btn-reset" onclick="resetGame()">Reset / New Game</button>
         </div>
     </div>
@@ -496,7 +496,7 @@
         checkWinner(); // <--- NEW: This runs the check every time a number changes
     }
 
-    // NEW FUNCTION: Checks if game is over and highlights the winner
+    // Checks if game is over and highlights the winner
     function checkWinner() {
         // 1. Check if ALL holes for ALL players are filled
         let allFinished = true;
@@ -528,7 +528,7 @@
             };
         });
 
-        // Math trick to find the lowest number in that list
+        // Math to find the lowest number in that list
         const minScore = Math.min(...currentTotals.map(t => t.score));
 
         // 5. Highlight the winner(s) - Handles ties automatically!
@@ -585,5 +585,6 @@
 
 </body>
 </html>
+
 
 
