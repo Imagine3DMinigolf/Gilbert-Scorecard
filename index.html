@@ -120,7 +120,8 @@
             font-size: 1.2rem;
         }
 
-         td:first-child, th:first-child {
+          /* 1. The Sticky "Hole" Column - Forced to be skinny */
+        td:first-child, th:first-child {
             position: sticky;
             left: 0;
             background-color: var(--light);
@@ -128,20 +129,24 @@
             border-right: 2px solid #ddd;
             z-index: 10;
             
-            /* NEW: Constraints to make it skinny */
-            width: 35px;       /* Sets a fixed width */
-            min-width: 35px;   /* Prevents it from getting squished */
-            max-width: 35px;   /* Prevents it from getting wider */
-            padding: 12px 0;   /* Removes left/right padding so the number fits */
+            /* SLIM WIDTH FIXES */
+            width: 35px;       
+            min-width: 35px;   
+            max-width: 35px;   
+            padding: 12px 0;   /* Removes side padding to center the number */
+            font-size: 0.9rem; /* Slightly smaller font for the hole number */
         }
 
+        /* 2. The Input Boxes - Optimized for mobile tapping */
         input[type="number"] {
-            width: 40px;
-            padding: 5px;
+            width: 100%;       /* Fills the cell naturally */
+            max-width: 45px;   /* Stops it from getting too huge on desktop */
+            padding: 8px 0;    /* Tall tap area, but no side padding */
             text-align: center;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 1.1rem;
+            font-size: 1rem;   /* Large enough to prevent zooming on iPhone */
+            background: #fafafa;
         }
 
         .total-row {
@@ -492,5 +497,6 @@
 
 </body>
 </html>
+
 
 
