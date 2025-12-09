@@ -503,45 +503,46 @@
         checkWinner(); // <--- NEW: This runs the check every time a number changes
     }
 
-    // Checks if game is over and highlights the winner
-    function checkWinner() {
+function checkWinner() {
         // 1. Check if ALL holes for ALL players are filled
         let allFinished = true;
         
-        // Loop through every player and every hole
         players.forEach(p => {
             for (let h = 1; h <= totalHoles; h++) {
-                const val = document.getElementById(`score-p${p.id}-h${h}`).value;
-                if (val === "") {
-                    allFinished = false; // Found an empty box!
+                if (document.getElementById(`score-p${p.id}-h${h}`).value === "") {
+                    allFinished = false;
                 }
             }
         });
 
-        // 2. Clear any previous winners (so gold doesn't get stuck)
+        // 2. CLEAN UP: Remove old trophies so we can do math
         players.forEach(p => {
-            document.getElementById(`total-p${p.id}`).classList.remove("winner");
+            const cell = document.getElementById(`total-p${p.id}`);
+            cell.classList.remove("winner");
+            // Remove the trophy if it exists
+            cell.innerText = cell.innerText.replace(" 🏆", "");
         });
 
         // 3. If game is NOT done, stop here.
         if (!allFinished) return;
 
         // 4. Find the Lowest Score
-        // Get all current totals into a list
         const currentTotals = players.map(p => {
             return { 
                 id: p.id, 
+                // Now that trophy is gone, this is a pure number again
                 score: Number(document.getElementById(`total-p${p.id}`).innerText) 
             };
         });
 
-        // Math to find the lowest number in that list
         const minScore = Math.min(...currentTotals.map(t => t.score));
 
-        // 5. Highlight the winner(s) - Handles ties automatically!
+        // 5. Award the Trophy
         currentTotals.forEach(t => {
             if (t.score === minScore) {
-                document.getElementById(`total-p${t.id}`).classList.add("winner");
+                const winningCell = document.getElementById(`total-p${t.id}`);
+                winningCell.classList.add("winner"); 
+                winningCell.innerHTML += " 🏆";     // <--- Adds the icon!
             }
         });
     }
@@ -592,6 +593,7 @@
 
 </body>
 </html>
+
 
 
 
