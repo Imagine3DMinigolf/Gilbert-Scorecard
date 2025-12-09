@@ -101,9 +101,10 @@
         }
 
         table {
-            width: 100%;
+            width: auto;        /* Stop stretching to fill the screen */
+            min-width: auto;    /* Stop forcing it to be 600px wide */
             border-collapse: collapse;
-            min-width: 600px;
+            margin: 0 auto;     /* Optional: This centers the table if it's small */
         }
 
         th, td {
@@ -502,6 +503,7 @@
 
 </body>
 </html>
+
 
 
 
