@@ -262,6 +262,33 @@
             text-decoration: line-through;
             opacity: 0.45;
         }
+        
+        /* Winner Highlight Animation */
+        .winner {
+            background-color: #FFD700 !important; /* Gold */
+            color: #000 !important;               /* Black text */
+            font-weight: 800;
+            border: 2px solid #B8860B;            /* Darker gold border */
+            transform: scale(1.1);                /* Make it pop out slightly */
+            transition: all 0.3s ease;
+        }
+
+        /* Google Review Button */
+        .btn-google {
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            padding: 10px 10px;    /* Compact padding */
+            border-radius: 8px;
+            flex: 1;
+            font-weight: bold;
+            text-decoration: none; /* Removes underline from link */
+            display: flex;         /* Centers text */
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        
     </style>
 </head>
 
@@ -307,6 +334,7 @@
         </div>
 
         <div class="controls">
+            <a href="#" target="_blank" class="btn-google">Rate Us? </a>
             <button class="btn-reset" onclick="resetGame()">Reset / New Game</button>
         </div>
     </div>
@@ -457,12 +485,59 @@
     function updateTotal(playerId) {
         let total = 0;
         for (let h = 1; h <= totalHoles; h++) {
-            total += Number(document.getElementById(`score-p${playerId}-h${h}`).value);
+            // Get the value from the box
+            const val = document.getElementById(`score-p${playerId}-h${h}`).value;
+            // Add to total (Number() turns empty text into 0 for math)
+            total += Number(val);
         }
         document.getElementById(`total-p${playerId}`).innerText = total;
+        
         saveData();
+        checkWinner(); // <--- NEW: This runs the check every time a number changes
     }
 
+    // NEW FUNCTION: Checks if game is over and highlights the winner
+    function checkWinner() {
+        // 1. Check if ALL holes for ALL players are filled
+        let allFinished = true;
+        
+        // Loop through every player and every hole
+        players.forEach(p => {
+            for (let h = 1; h <= totalHoles; h++) {
+                const val = document.getElementById(`score-p${p.id}-h${h}`).value;
+                if (val === "") {
+                    allFinished = false; // Found an empty box!
+                }
+            }
+        });
+
+        // 2. Clear any previous winners (so gold doesn't get stuck)
+        players.forEach(p => {
+            document.getElementById(`total-p${p.id}`).classList.remove("winner");
+        });
+
+        // 3. If game is NOT done, stop here.
+        if (!allFinished) return;
+
+        // 4. Find the Lowest Score
+        // Get all current totals into a list
+        const currentTotals = players.map(p => {
+            return { 
+                id: p.id, 
+                score: Number(document.getElementById(`total-p${p.id}`).innerText) 
+            };
+        });
+
+        // Math trick to find the lowest number in that list
+        const minScore = Math.min(...currentTotals.map(t => t.score));
+
+        // 5. Highlight the winner(s) - Handles ties automatically!
+        currentTotals.forEach(t => {
+            if (t.score === minScore) {
+                document.getElementById(`total-p${t.id}`).classList.add("winner");
+            }
+        });
+    }
     /* ====================== SAVE GAME ====================== */
     function saveData() {
         const scores = {};
@@ -510,4 +585,5 @@
 
 </body>
 </html>
+
 
