@@ -111,7 +111,12 @@
             text-align: center;
             border-bottom: 1px solid #eee;
             min-width: 70px; /* Each player gets at least 70px of space */
-            
+            border-right: 1px solid #333; /* Uses a dark grey (almost black) line */
+        }
+
+        /* OPTIONAL: Removes the line from the very last column so it looks cleaner */
+        td:last-child, th:last-child {
+            border-right: none;
         }
 
         th {
@@ -504,6 +509,7 @@
 
 </body>
 </html>
+
 
 
 
