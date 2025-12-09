@@ -120,13 +120,19 @@
             font-size: 1.2rem;
         }
 
-        td:first-child, th:first-child {
+         td:first-child, th:first-child {
             position: sticky;
             left: 0;
             background-color: var(--light);
             font-weight: bold;
             border-right: 2px solid #ddd;
             z-index: 10;
+            
+            /* NEW: Constraints to make it skinny */
+            width: 35px;       /* Sets a fixed width */
+            min-width: 35px;   /* Prevents it from getting squished */
+            max-width: 35px;   /* Prevents it from getting wider */
+            padding: 12px 0;   /* Removes left/right padding so the number fits */
         }
 
         input[type="number"] {
@@ -486,4 +492,5 @@
 
 </body>
 </html>
+
 
