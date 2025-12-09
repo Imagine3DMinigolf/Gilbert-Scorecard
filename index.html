@@ -100,17 +100,19 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        table {
-            width: auto;        /* Stop stretching to fill the screen */
-            min-width: auto;    /* Stop forcing it to be 600px wide */
+         table {
+            width: 100%;        /* Fills the screen (good for 1 player) */
+            min-width: 0;       /* Removes the old 600px force */
             border-collapse: collapse;
-            margin: 0 auto;     /* Optional: This centers the table if it's small */
+            table-layout: fixed; /* Optional: keeps columns even */
         }
 
         th, td {
             padding: 8px 2px;
             text-align: center;
             border-bottom: 1px solid #eee;
+            min-width: 70px; /* Each player gets at least 70px of space */
+            
         }
 
         th {
@@ -503,6 +505,7 @@
 
 </body>
 </html>
+
 
 
 
